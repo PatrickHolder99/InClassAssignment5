@@ -23,21 +23,44 @@ The steps of the algorithm are as follows:
 The base cases occur when the sublists are either empty or have one element, as these are inherently sorted. 
  '''
 
+from statistics import median
+from subprocess import list2cmdline
 
 def quicksort(numbers_in_a_list):
 
-#WRITE YOUR CODE HERE FOR THE RECURSIVE SORTING FUNCTION
+    if len(numbers_in_a_list) <= 1:
+        return numbers_in_a_list
 
-    return #WHAT DOES IT RETURN?
+    medianNum = median(numbers_in_a_list)
+    lowList = []
+    highList = []
+
+    for i in numbers_in_a_list:
+        if i <= medianNum:
+            lowList.append(i)
+        else:
+            highList.append(i)
+
+    
+
+    return quicksort(lowList) + quicksort(highList)
 
 
 def main():
+    numbersFile = open("numbers.txt","r")
+    #https://www.w3schools.com/python/python_file_open.asp
+    fileIn = numbersFile.read()
+    numList = strToNumList(fileIn)
+    print(quicksort(numList))
+    return 0
 
-# WRITE YOUR MAIN FUNCTION HERE TO READ IN YOUR numbers.txt FILE, RUN THE LIST THROUGH YOUR SORTING ALGORITHM, 
-# AND WRITE OUT YOUR FILE
-
-    return #WHAT DOES IT RETURN?
-
+def strToNumList(str):
+    str = str.replace('[','')
+    str = str.replace(']','')
+    strList = str.split(",")
+    numList = [eval(i) for i in strList]
+    #Method Found from https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
+    return numList
 
 if __name__ == "__main__":
     main()
