@@ -51,7 +51,14 @@ def main():
     #https://www.w3schools.com/python/python_file_open.asp
     fileIn = numbersFile.read()
     numList = strToNumList(fileIn)
-    print(quicksort(numList))
+    sortedList = quicksort(numList)
+    print(sortedList)
+    strList = ' '.join(str(e) for e in sortedList)
+    #https://www.simplilearn.com/tutorials/python-tutorial/list-to-string-in-python
+    strList = strList.replace(' ',", ")
+    numbersFile = open("sorted.txt","a")
+    numbersFile.write("[" + strList + "]")
+    numbersFile.close()
     return 0
 
 def strToNumList(str):
@@ -61,6 +68,10 @@ def strToNumList(str):
     numList = [eval(i) for i in strList]
     #Method Found from https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
     return numList
+
+def prntList(numList):
+    reStr = "["
+
 
 if __name__ == "__main__":
     main()
